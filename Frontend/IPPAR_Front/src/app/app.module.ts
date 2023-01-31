@@ -3,21 +3,21 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { Error404Component } from './error404/error404.component';
-import { RegisterComponent } from './register/register.component';
-import { HomeComponent } from './home/home.component';
-import { NavbarComponent } from './navbar/navbar.component';
+import { LoginComponent } from './components/login/login.component';
+import { Error404Component } from './components/error404/error404.component';
+import { RegisterComponent } from './components/register/register.component';
+import { HomeComponent } from './components/home/home.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
-  declarations: [	
+  declarations: [
     AppComponent,
     LoginComponent,
     Error404Component,
     RegisterComponent,
     HomeComponent,
     NavbarComponent,
-   ],
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule

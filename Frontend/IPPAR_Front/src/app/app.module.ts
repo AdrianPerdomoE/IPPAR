@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { Error404Component } from './error404/error404.component';
 import { RegisterComponent } from './register/register.component';
+import { HomeComponent } from './home/home.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [	
@@ -13,6 +15,8 @@ import { RegisterComponent } from './register/register.component';
     LoginComponent,
     Error404Component,
     RegisterComponent,
+    HomeComponent,
+    NavbarComponent,
    ],
   imports: [
     BrowserModule,

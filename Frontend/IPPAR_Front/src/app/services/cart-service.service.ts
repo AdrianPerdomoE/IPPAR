@@ -45,6 +45,7 @@ export class UserService {
     else {
       cartItem.amount = cartItem.amount - amount
     }
+    cart.toPay = cart.cartItems.map(itm=>{return itm.amount*itm.item.price}).reduce((prev,curr)=>{ return curr+prev})
     return cart;
   }
 }

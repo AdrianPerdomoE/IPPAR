@@ -17,7 +17,9 @@
                                     <div class="form-outline mb-4">
                                         <input type="email" id="email" class="form-control"
                                             placeholder="Correo electrónico" [(ngModel)]="email"
-                                            [ngModelOptions]="{standalone: true}" required />
+                                            [ngModelOptions]="{standalone: true}" required (blur)="analizarCorreo()" (focus)="errorCorreo=false"/>
+                                        <label for="email" class="alert alert-primary mt-1 w-70 p-3" role="alert"
+                                            [hidden]="!errorCorreo">No es un correo valido.</label>
                                     </div>
 
                                     <div class="form-outline mb-4">

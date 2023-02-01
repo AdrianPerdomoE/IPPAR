@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
           return
         }
         this.sesionService.logSesion(this.user)
-        this._router.navigate(['/'])
+        this._router.navigate(['/home'])
         this.notifService.enviarAlerta(
           'success',
           'Mensaje',

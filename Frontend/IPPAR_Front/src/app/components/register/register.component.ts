@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/User';
 import { UserService } from 'src/app/services/user-service.service';
 import { Router } from '@angular/router';
+import { NotificacionesService } from 'src/app/services/notificaciones-service.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -12,7 +13,11 @@ export class RegisterComponent implements OnInit {
   savedUser: User = new User('', '', '', '', '')
   status = ''
 
-  constructor(private userService: UserService, private _router: Router) {
+  constructor(
+    private userService: UserService,
+    private _router: Router,
+    private notifService: NotificacionesService
+  ) {
 
   }
 
@@ -30,10 +35,20 @@ export class RegisterComponent implements OnInit {
           this.userService.registerUser(this.user).subscribe(
             response => {
               if (response.user) {
-                this._router.navigate(['/home']);
+                this._router.navigate(['/login']);
+                this.notifService.enviarAlerta(
+                  'success',
+                  'Mensaje',
+                  'Cuenta creada correctamente. Ya puedes iniciar sesión.'
+                );
               }
               else {
                 this.status = "Failed";
+                this.notifService.enviarAlerta(
+                  'error',
+                  'Mensaje',
+                  'Ha ocurrido un error al crear la cuenta.'
+                );
               }
             }
           )

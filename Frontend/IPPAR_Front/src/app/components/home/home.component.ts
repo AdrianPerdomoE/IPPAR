@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { SesionServiceService } from 'src/app/services/sesion-service.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private sesionService: SesionServiceService, private _router: Router) { }
 
   ngOnInit(): void {
+    if (!this.sesionService.confirmOpenSesion()) {
+      this._router.navigate(['/login'])
+    }
   }
 
 }

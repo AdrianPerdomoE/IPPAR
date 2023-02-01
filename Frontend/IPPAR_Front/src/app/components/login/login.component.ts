@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
           return
         }
         this.sesionService.logSesion(this.user)
-        this._router.navigate(['/home'])
+        this._router.navigate(['/'])
       }
     )
    }

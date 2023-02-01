@@ -11,8 +11,9 @@ var multipartMiddleWare = multipart({ uploadDir: "./img" });
 
 //Rutas para el usuario
 router.post('/USave', userController.saveUser);
-router.get('/user/:UserName', userController.getUser);
+router.get('/user/:email', userController.getUser);
 router.get('/users', userController.getUsers);
+router.get('/emailExistence/:email', userController.emailExistence);
 router.put('/user/:id', userController.updateUser);
 router.delete('/user/:id', userController.deleteUser);
 

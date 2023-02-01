@@ -21,20 +21,20 @@ var controller = {
 
     },
     getUser: function (req, res) {//Metodo para buscar un usuario en la base de datos por el nombre de usuario, retorna el usuario encontrado, metodo relacionado con la historia de usuario Hu13 y Hu14
-        var UserName = req.params.UserName;
+        var email = req.params.email;
 
-        if (!UserName) {
+        if (!email) {
             return req.status(404).send({ message: 'El usuario no existe' })
         }
 
 
-        User.findOne({ UserName: UserName }).exec((err, user) => {
+        User.findOne({ email: email }).exec((err, user) => {
             if (err) {
                 return res.status(500).send({ message: 'Error al devolver los datos.' });
             }
 
 
-            if (!user) return req.status(404).send({ message: 'El usuario no existe' })
+            if (!user) return res.status(200).send({ message: 'El usuario no existe' })
 
             return res.status(200).send({ user });
 
@@ -50,6 +50,22 @@ var controller = {
         })
 
     },
+    emailExistence: function (req, res) {
+        let userEmail = req.params.email;
+
+        User.find({}).exec((err, users) => {
+            if (err) return res.status(500).send({ message: 'Error al devolver los datos' })
+
+            if (!users) return res.status(404).send({ message: 'No hay usuarios registrados' })
+            let existence = false
+            users.forEach(usr => {
+                if (usr.email == userEmail) { existence = true; }
+            })
+            return res.status(200).send({ existence });
+        })
+
+    }
+    ,
     updateUser: function (req, res) {//Metodo para actualiar un usuario, relacionado con la historia de usuario Hu15 y el requisito RF016
         var userId = req.params.id;
         var update = req.body;
@@ -65,7 +81,7 @@ var controller = {
         })
     },
     deleteUser: function (req, res) {//Metodo para eliminar un usuario.
-        var userId = req.params.id;
+        let userId = req.params.id;
 
         User.findByIdAndDelete(userId, (err, userRemoved) => {
             if (err) return res.status(500).send({ message: 'No se ha podido borrar el proyecto' })

@@ -10,6 +10,8 @@ import { Error404Component } from './components/error404/error404.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { MapComponent } from './components/map/map.component';
+import { ListaTiendasComponent } from './components/lista-tiendas/lista-tiendas.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     RegisterComponent,
     HomeComponent,
     NavbarComponent,
+    MapComponent,
+    ListaTiendasComponent,
   ],
   imports: [
     BrowserModule,

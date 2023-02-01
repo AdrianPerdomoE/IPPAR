@@ -24,9 +24,9 @@ export class UserService {
       return this._http.get(`${this.url}users`, { headers: headers });
   }
 
-  getUser(userName: string): Observable<any> {
+  getUser(email: string): Observable<any> {
       let headers = new HttpHeaders().set("Content-Type", "application/json");
-      return this._http.get(`${this.url}user/${userName}`, { headers: headers });
+      return this._http.get(`${this.url}user/${email}`, { headers: headers });
   }
 
   updateUser(user: User): Observable<any> {
@@ -34,6 +34,9 @@ export class UserService {
       let headers = new HttpHeaders().set("Content-Type", "application/json");
       return this._http.put(`${this.url}user/${user._id}`, params, { headers: headers });
   }
-
+ emailExistence(email: string):Observable<any>{
+      let headers = new HttpHeaders().set("Content-Type", "application/json");
+      return this._http.get(`${this.url}emailExistence/${email}`,{ headers: headers });
+ }
 
 }

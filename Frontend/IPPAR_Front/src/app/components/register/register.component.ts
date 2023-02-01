@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/User';
 import { UserService } from 'src/app/services/user-service.service';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -12,7 +12,7 @@ export class RegisterComponent implements OnInit {
   savedUser: User = new User('', '', '', '', '')
   status = ''
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private _router: Router) {
 
   }
 
@@ -21,15 +21,25 @@ export class RegisterComponent implements OnInit {
 
   registrar() {
     this.savedUser = this.user
-    this.userService.registerUser(this.user).subscribe(
+    this.userService.emailExistence(this.user.email).subscribe(
       response => {
-        if (response.user) {
-          this.status = "Success";
+        if (response.existence) {
+          this.status = 'UserExist';
         }
         else {
-          this.status = "Failed";
+          this.userService.registerUser(this.user).subscribe(
+            response => {
+              if (response.user) {
+                this._router.navigate(['/home']);
+              }
+              else {
+                this.status = "Failed";
+              }
+            }
+          )
         }
       }
     )
+
   }
 }

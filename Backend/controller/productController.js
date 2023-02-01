@@ -1,7 +1,7 @@
 "use strict"
 var Product = require("../models/Product");
 var controller = {
-    getProduct: (req, res) => {//Metodo para buscar un producto por id en la base de datos, devuelve el producto encontrado, relacionado al requisito RF004
+    getProduct: (req, res) => {
         var product_id = req.params.id;
         Product.findById(product_id, (err, product) => {
             if (err) {
@@ -13,7 +13,7 @@ var controller = {
             return res.status(200).send({ product });
         });
     },
-    getProductsOwner: (req, res) => {//Metodo para buscar todos los productos que existen en la base de datos, devuelve una lista con todos los elementos, relacionado a la historia de usuario Hu4 y el requisito RF005
+    getProductsOwner: (req, res) => {
         let owner = req.params.owner
         Product.find({owner:owner}).exec((err, products) => {
             if (err) {
@@ -26,7 +26,7 @@ var controller = {
         });
     }
     ,
-    getProductSearchOwner: (req, res) => {//Metodo para buscar todos los productos que existen en la base de datos, devuelve una lista con todos los elementos, relacionado a la historia de usuario Hu4 y el requisito RF005
+    getProductSearchOwner: (req, res) => {
         let productName = new RegExp(`${req.params.searchBy}`, "i")
         let owner = req.params.owner
         Product.find({name:productName,owner:owner}).exec((err, products) => {

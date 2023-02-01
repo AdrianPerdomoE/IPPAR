@@ -2,7 +2,7 @@
 var User = require('../models/User');
 
 var controller = {
-    saveUser: (req, res) => {//Metodo para guardar un usuario en la colleción de la base de datos, relacionado con la historia de usuario Hu12 y el requisito RF0011
+    saveUser: (req, res) => {
         let usuario = new User();
         var params = req.body;
         usuario.name = params.name;
@@ -20,7 +20,7 @@ var controller = {
         })
 
     },
-    getUser: function (req, res) {//Metodo para buscar un usuario en la base de datos por el nombre de usuario, retorna el usuario encontrado, metodo relacionado con la historia de usuario Hu13 y Hu14
+    getUser: function (req, res) {
         var email = req.params.email;
 
         if (!email) {
@@ -40,7 +40,7 @@ var controller = {
 
         })
     },
-    getUsers: function (req, res) {//Metodo para buscar todos los usuarios y devolver una lista con todos los elementos, relacionado a verificar la existencia de un usuario 
+    getUsers: function (req, res) {
         User.find({}).exec((err, users) => {
             if (err) return res.status(500).send({ message: 'Error al devolver los datos' })
 
@@ -66,7 +66,7 @@ var controller = {
 
     }
     ,
-    updateUser: function (req, res) {//Metodo para actualiar un usuario, relacionado con la historia de usuario Hu15 y el requisito RF016
+    updateUser: function (req, res) {
         var userId = req.params.id;
         var update = req.body;
 
@@ -80,7 +80,7 @@ var controller = {
             })
         })
     },
-    deleteUser: function (req, res) {//Metodo para eliminar un usuario.
+    deleteUser: function (req, res) {
         let userId = req.params.id;
 
         User.findByIdAndDelete(userId, (err, userRemoved) => {

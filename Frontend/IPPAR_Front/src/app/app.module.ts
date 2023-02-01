@@ -12,6 +12,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MapComponent } from './components/map/map.component';
 import { ListaTiendasComponent } from './components/lista-tiendas/lista-tiendas.component';
+import { TiendaComponent } from './components/tienda/tienda.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ListaTiendasComponent } from './components/lista-tiendas/lista-tiendas.
     NavbarComponent,
     MapComponent,
     ListaTiendasComponent,
+    TiendaComponent,
   ],
   imports: [
     BrowserModule,

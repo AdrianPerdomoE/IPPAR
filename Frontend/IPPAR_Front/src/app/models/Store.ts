@@ -6,7 +6,7 @@ export class Store {
         public tag: string,
         public points: string,
         public waitTime: string,
-        public longitud:number,
-        public latitud:number
+        public latitud: number,
+        public longitud: number
     ) { }
 }

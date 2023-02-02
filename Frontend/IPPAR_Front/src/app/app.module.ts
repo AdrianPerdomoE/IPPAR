@@ -12,6 +12,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MapComponent } from './components/map/map.component';
 import { ListaTiendasComponent } from './components/lista-tiendas/lista-tiendas.component';
+import { TiendaCardComponent } from './components/tienda-card/tienda-card.component';
 import { TiendaComponent } from './components/tienda/tienda.component';
 
 @NgModule({
@@ -24,7 +25,8 @@ import { TiendaComponent } from './components/tienda/tienda.component';
     NavbarComponent,
     MapComponent,
     ListaTiendasComponent,
-    TiendaComponent,
+    TiendaCardComponent,
+    TiendaComponent
   ],
   imports: [
     BrowserModule,

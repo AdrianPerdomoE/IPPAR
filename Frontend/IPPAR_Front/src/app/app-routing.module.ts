@@ -6,13 +6,15 @@ import { ListaTiendasComponent } from './components/lista-tiendas/lista-tiendas.
 import { LoginComponent } from './components/login/login.component';
 import { MapComponent } from './components/map/map.component';
 import { RegisterComponent } from './components/register/register.component';
+import { TiendaComponent } from './components/tienda/tienda.component';
 
 const routes: Routes = [
   {
     path: '', component: HomeComponent,
     children: [
       { path: 'home', component: ListaTiendasComponent },
-      { path: 'map', component: MapComponent }
+      { path: 'map', component: MapComponent },
+      { path: 'tienda/:id', component: TiendaComponent }
     ]
   },
   { path: 'login', component: LoginComponent },

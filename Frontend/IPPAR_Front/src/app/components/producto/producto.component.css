@@ -1,0 +1,35 @@
+.img-fluid {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card:hover {
+    filter: brightness(95%);
+    transform: translateY(-5px);
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.card:hover button {
+    background: #ffc107;
+    color: #000;
+}
+
+.desc {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.title {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}

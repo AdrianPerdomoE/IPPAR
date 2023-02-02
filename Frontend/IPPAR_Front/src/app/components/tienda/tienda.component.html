@@ -1,1 +1,15 @@
-<p>tienda works! {{indice}}</p>
+<div class="m-5">
+    <div class="d-flex mb-3">
+        <h3>
+            Productos en
+            <small class="text-primary">Tienda #{{indice}}</small>
+        </h3>
+
+        <button class="btn btn-outline-secondary ms-3" (click)="goHome()">Volver al Inicio</button>
+    </div>
+
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
+        <app-producto *ngFor="let producto of filtrarProductos(indice)" [producto]="producto"></app-producto>
+    </div>
+</div>

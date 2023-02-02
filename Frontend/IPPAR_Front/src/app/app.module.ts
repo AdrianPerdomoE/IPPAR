@@ -14,6 +14,7 @@ import { MapComponent } from './components/map/map.component';
 import { ListaTiendasComponent } from './components/lista-tiendas/lista-tiendas.component';
 import { TiendaCardComponent } from './components/tienda-card/tienda-card.component';
 import { TiendaComponent } from './components/tienda/tienda.component';
+import { ProductoComponent } from './components/producto/producto.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { TiendaComponent } from './components/tienda/tienda.component';
     MapComponent,
     ListaTiendasComponent,
     TiendaCardComponent,
-    TiendaComponent
+    TiendaComponent,
+    ProductoComponent
   ],
   imports: [
     BrowserModule,

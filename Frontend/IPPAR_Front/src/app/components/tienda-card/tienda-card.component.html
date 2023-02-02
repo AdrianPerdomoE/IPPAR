@@ -1,5 +1,5 @@
 <div class="col">
-  <div class="card h-100" [routerLink]="['/tienda/', tienda._id]">
+  <div class="card h-100" [routerLink]="['/tienda/', tienda.name,tienda._id]">
     <img [src]="tienda.image" class="card-img-top" [alt]="tienda.name">
     <div class="card-body">
       <div class="d-flex justify-content-between">

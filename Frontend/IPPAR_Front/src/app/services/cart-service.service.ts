@@ -8,7 +8,7 @@ import { CartItem } from "../models/CartItem";
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class CartService {
   public url: string;
   constructor(private _http: HttpClient) {
     this.url = Global.url;

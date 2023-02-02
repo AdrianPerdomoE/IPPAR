@@ -3,8 +3,8 @@ import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import { icon, Marker } from 'leaflet';
 
-export const DEFAULT_LAT = 48.20807;
-export const DEFAULT_LON = 16.37320;
+export const DEFAULT_LAT = 6.2357504;
+export const DEFAULT_LON = -75.61216;
 export const TITULO = 'Proyecto';
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';

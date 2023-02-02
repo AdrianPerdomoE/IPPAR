@@ -2,7 +2,14 @@
     filter: brightness(95%);
     transform: translateY(-5px);
     transition: transform 0.2s ease-in-out;
+    cursor: pointer;
 }
+
+.card:hover button{
+    background: #0069d9;
+    color:#fff;
+}
+
 
 .card-img-top {
     width: 100%;

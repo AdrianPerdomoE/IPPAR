@@ -5,6 +5,8 @@ export class Store {
         public image: string,
         public tag: string,
         public points: string,
-        public waitTime: string
+        public waitTime: string,
+        public longitud:number,
+        public latitud:number
     ) { }
 }

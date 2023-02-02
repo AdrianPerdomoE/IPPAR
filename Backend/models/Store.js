@@ -6,8 +6,10 @@ var Store = Schema({
     name: String,
     image: String,
     tag: String,
-    points:Number,
-    waitTime:String
+    points: Number,
+    waitTime: String,
+    longitud: Number,
+    latitud: Number
 });
 
 module.exports = mongoose.model("Stores", Store);

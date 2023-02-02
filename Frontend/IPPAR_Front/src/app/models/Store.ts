@@ -4,7 +4,7 @@ export class Store {
         public name: string,
         public image: string,
         public tag: string,
-        public points: number,
+        public points: string,
         public waitTime: string
     ) { }
 }

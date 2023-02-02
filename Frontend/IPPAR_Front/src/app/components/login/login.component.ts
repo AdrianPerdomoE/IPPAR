@@ -15,14 +15,18 @@ export class LoginComponent implements OnInit {
   email = ''
   password = ''
   user = new User('', '', '', '', '')
+  errorCorreo = false
   constructor(
-    private userService: UserService, 
-    private sesionService: SesionServiceService, 
+    private userService: UserService,
+    private sesionService: SesionServiceService,
     private _router: Router,
     private notifService: NotificacionesService
   ) { }
 
   ngOnInit(): void {
+    if (this.sesionService.confirmOpenSesion()) {
+      this._router.navigate(['/home'])
+    }
   }
   submit() {
     this.userService.getUser(this.email).subscribe(
@@ -55,7 +59,15 @@ export class LoginComponent implements OnInit {
     )
   }
 
+  analizarCorreo(){
+    this.errorCorreo = !this.verificarCorreo()
+  }
   verificar() {
-    return this.email.length < 1 || this.password.length < 1
+    let verificacionCorreo = this.verificarCorreo()
+    return !verificacionCorreo || this.password.length < 1
+  }
+  verificarCorreo() {
+    let patron = new RegExp("^[a-z]+[a-z0-9._-]+@[a-z]+\.[a-z.]{2,5}$");
+    return patron.test(this.email)
   }
 }

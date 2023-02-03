@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Cart } from 'src/app/models/Cart';
-import { Store } from 'src/app/models/Store';
 import { CartService } from 'src/app/services/cart-service.service';
 import { SesionServiceService } from 'src/app/services/sesion-service.service';
 
@@ -22,13 +21,21 @@ export class CarritoComponent implements OnInit {
       }
     })
   }
-  sacar(index: number, amount: string) {
+
+  calcularNumeroItems() {
+    let cantidad: number = 0
+    this.carrito.cartItems.map(item => cantidad += item.amount)
+    return cantidad
+  }
+
+  cambiarCantidad(index: number, amount: string) {
     let value = Number(amount)
-    let newCart = this.cartService.takeOutCartItem(index, value, this.carrito)
+    let newCart = this.cartService.changeAmount(index, value, this.carrito)
     this.cartService.updateCar(newCart).subscribe(resp => {
       console.log('Item sacado del carrito')
     })
   }
+
   eliminar(index: number) {
     this.cartService.removeCartItem(index, this.carrito);
     this.cartService.updateCar(this.carrito).subscribe(resp => {

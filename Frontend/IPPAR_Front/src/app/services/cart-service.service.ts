@@ -45,22 +45,27 @@ export class CartService {
     return this._http.put(`${this.url}emptyCart`, params, { headers: headers });
   }
 
-  takeOutCartItem(index: number, amount: number, cart: Cart): Cart {
+  changeAmount(index: number, amount: number, cart: Cart): Cart {
     let cartItem = cart.cartItems.at(index);
     if (!cartItem) return cart;
-    if (cartItem?.amount - amount == 0) {
+    if (amount === 0) {
       this.removeCartItem(index, cart)
     }
+    else if (amount > 100) {
+    cartItem.amount = 100
+    }
     else {
-      cartItem.amount -= amount
+    cartItem.amount = amount
     }
     this.calculateNewToPay(cart)
     return cart;
   }
+
   removeCartItem(index: number, cart: Cart): void {
     cart.cartItems = cart.cartItems.filter((item, ind) => { return ind != index })
     this.calculateNewToPay(cart)
   }
+
   addCarItem(product: Product, amount: number, storeName: string, storeId: string, cart: Cart): Cart {
     let result = this.lookForItem(product, cart)
     if (this.lookForItem(product, cart) >= 0) {
@@ -70,8 +75,10 @@ export class CartService {
     }
     let newCartItem = new CartItem(product, amount, storeName, storeId)
     cart.cartItems.push(newCartItem)
+    this.calculateNewToPay(cart)
     return cart;
   }
+
   private lookForItem(product: Product, cart: Cart): number {
     for (let index = 0; index < cart.cartItems.length; index++) {
       if (cart.cartItems[index].item._id == product._id) {

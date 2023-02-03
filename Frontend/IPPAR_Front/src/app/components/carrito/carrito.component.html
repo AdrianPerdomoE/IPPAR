@@ -3,7 +3,7 @@
         <h3 class="d-flex justify-content-center">
             Carrito de compras
         </h3>
-        <span class="text-muted d-flex justify-content-center">¡Tienes {{carrito.cartItems.length}} productos!</span>
+        <span class="text-muted d-flex justify-content-center">¡Tienes {{calcularNumeroItems()}} productos!</span>
     </div>
 
     <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 justify-content-center">
@@ -14,8 +14,8 @@
                 <div class="d-flex gap-2 w-100 justify-content-between">
                     <div>
                         <h6 class="mb-0">{{cartItem.item.name}}</h6>
-                        <small class="opacity-80 text-nowrap">Cantidad: {{cartItem.amount}}</small>
-                        <p class="mb-0 opacity-75">Precio total: $ {{(cartItem.item.price*cartItem.amount).toLocaleString()}}</p>
+                        <p class="mb-0 opacity-75">Precio total: $
+                            {{(cartItem.item.price*cartItem.amount).toLocaleString()}}</p>
                         <span class="badge rounded-pill text-bg-warning info-tienda"
                             routerLink='/tienda/{{cartItem.storeName}}/{{cartItem.storeId}}'>
                             <i class="fa fa-info-circle fa-sm"></i>
@@ -23,13 +23,13 @@
                         </span>
                     </div>
                     <div class="d-flex gap-2 flex-row align-items-start">
-                        <small class="opacity-50 text-nowrap">Precio unidad: {{cartItem.item.price}} $</small>
+                        <small class="opacity-50 text-nowrap">Precio unidad: $ {{(cartItem.item.price).toLocaleString()}}</small>
 
-                        <div class="input-group">
-                            <input #porSacar type="number" class="form-control form-control-sm" placeholder="Cantidad"
-                                min='1' max={{cartItem.amount}} value="1" min="1" aria-describedby="button">
-                            <button class="btn btn-outline-warning btn-sm" type="button" id="button"
-                                (click)="sacar(indice,porSacar.value)">Sacar</button>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text">Cantidad</span>
+                            <input #cantidad type="number" class="form-control form-control-sm" placeholder="Cantidad"
+                                min='1' max='100' [value]="cartItem.amount" min="1"
+                                (change)="cambiarCantidad(indice,cantidad.value)">
                         </div>
 
                         <button class="btn btn-sm btn-danger" (click)="eliminar(indice)">

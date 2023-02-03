@@ -36,17 +36,23 @@
 
       <!-- Search form -->
       <form class="d-flex input-group w-50 ms-lg-3 my-3 my-lg-0">
-        <input type="search" class="form-control" placeholder="Buscar" aria-label="Buscar" [(ngModel)]="search" [ngModelOptions]="{standalone: true}"/>
-        <button class="btn btn-secondary" type="button" data-mdb-ripple-color="dark" (click)="searchRedirect()">
+        <input type="search" class="form-control w-50" placeholder="Buscar..." aria-label="Buscar..."
+          [(ngModel)]="query" [ngModelOptions]="{standalone: true}" (keyup)="search()" />
+        <select class="form-select form-select-sm" name="tipo-busqueda" [(ngModel)]="type">
+          <option value="tiendas">Tiendas</option>
+          <option value="productos">Productos</option>
+        </select>
+        <button class="btn btn-secondary" type="button" (click)="search()">
           <i class="fa fa-search fa-lg mb-1"></i>
         </button>
+
       </form>
 
       <!-- Right links -->
       <ul class="navbar-nav ms-auto d-flex flex-row mt-3 mt-lg-0">
         <li class="nav-item text-center mx-2 mx-lg-1">
           <a class="nav-link" [routerLink]="'carrito'" [routerLinkActive]="['active']">
-            <div  class="position-relative">
+            <div class="position-relative">
               <i class="fa fa-shopping-cart fa-lg mb-1"></i>
               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                 0
@@ -76,7 +82,7 @@
             <div>
               <i class="fa fa-times" aria-hidden="true"></i>
             </div>
-            Cerrar 
+            Cerrar
           </a>
         </li>
       </ul>

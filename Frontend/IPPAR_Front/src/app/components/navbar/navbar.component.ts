@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Sesion } from 'src/app/models/Sesion';
 import { SesionServiceService } from 'src/app/services/sesion-service.service';
 
@@ -8,29 +9,27 @@ import { SesionServiceService } from 'src/app/services/sesion-service.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  public search: string = ''
-  constructor(private sesionService: SesionServiceService) { }
+  public query: string = ''
+  public type: string = 'tiendas'
+
+  constructor(
+    private _router: Router,
+    private sesionService: SesionServiceService
+  ) { }
 
   ngOnInit(): void {
   }
+
   logOut() {
     this.sesionService.logOut()
-
   }
-  searchRedirect() {
-    let level = this.sesionService.getSearchLevel()
-    if (level == Sesion.GENERAL) {
-      this.generalSearch()
+
+  search() {
+    if (this.type === 'productos') {
+      this._router.navigate(['/product'], { queryParams: { query: this.query } })
     }
     else {
-      this.insideSearch()
+      this._router.navigate(['/home'], { queryParams: { query: this.query } })
     }
-  }
-
-  generalSearch() {
-
-  }
-  insideSearch() {
-
   }
 }

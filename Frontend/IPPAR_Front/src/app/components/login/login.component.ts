@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
         this.user = response.user
         if (this.password != this.user.password) {
           this.notifService.enviarAlerta(
-            'success',
+            'error',
             'Mensaje',
             'La contraseña ingresada es incorrecta.'
           );

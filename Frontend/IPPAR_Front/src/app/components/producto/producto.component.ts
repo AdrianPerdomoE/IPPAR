@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/models/Product';
 import { User } from 'src/app/models/User';
 import { CartService } from 'src/app/services/cart-service.service';
+import { NotificacionesService } from 'src/app/services/notificaciones-service.service';
 import { SesionServiceService } from 'src/app/services/sesion-service.service';
 
 @Component({
@@ -13,11 +14,16 @@ import { SesionServiceService } from 'src/app/services/sesion-service.service';
 export class ProductoComponent implements OnInit {
   @Input() producto: Product
 
-  constructor(private cartService: CartService, private sesionService: SesionServiceService,
-    private actRoute: ActivatedRoute) { }
+  constructor(
+    private cartService: CartService, 
+    private sesionService: SesionServiceService,
+    private actRoute: ActivatedRoute,
+    private notifService: NotificacionesService
+  ) { }
 
   ngOnInit(): void {
   }
+
   addItem(amount: string) {
     let value = Number(amount)
     let user = this.sesionService.getCurrentUser()
@@ -29,7 +35,18 @@ export class ProductoComponent implements OnInit {
         let newcart = this.cartService.addCarItem(this.producto, value, name, id, response.cart)
         this.cartService.updateCar(newcart).subscribe(resp => {
           if (resp) {
-            console.log('Item añadido correctamente a la canasta')
+            this.notifService.enviarNotificacion(
+              'success',
+              'Mensaje',
+              '¡Item añadido al carrito de compras!'
+            );
+          }
+          else {
+            this.notifService.enviarNotificacion(
+              'error',
+              'Mensaje',
+              'Ha ocurrido un error inesperado.'
+            );
           }
         })
       }

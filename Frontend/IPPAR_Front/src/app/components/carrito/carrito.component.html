@@ -15,7 +15,7 @@
                     <div>
                         <h6 class="mb-0">{{cartItem.item.name}}</h6>
                         <small class="opacity-80 text-nowrap">Cantidad: {{cartItem.amount}}</small>
-                        <p class="mb-0 opacity-75">Precio total:{{cartItem.item.price*cartItem.amount}} $</p>
+                        <p class="mb-0 opacity-75">Precio total: $ {{(cartItem.item.price*cartItem.amount).toLocaleString()}}</p>
                         <span class="badge rounded-pill text-bg-warning info-tienda"
                             routerLink='/tienda/{{cartItem.storeName}}/{{cartItem.storeId}}'>
                             <i class="fa fa-info-circle fa-sm"></i>
@@ -39,5 +39,5 @@
                 </div>
             </li>
         </ul>
-        <h1 class="mb-0">Total a pagar:{{carrito.toPay}} $</h1>
+        <h1 class="mb-0">Total a pagar: <br> $ {{(carrito.toPay).toLocaleString()}}</h1>
         <button class="btn btn-outline-success btn-sm" type="button" id="button">Pagar</button>

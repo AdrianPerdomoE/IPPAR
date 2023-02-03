@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import Swal, { SweetAlertIcon } from 'sweetalert2'
 
 @Injectable({
@@ -6,7 +7,9 @@ import Swal, { SweetAlertIcon } from 'sweetalert2'
 })
 export class NotificacionesService {
 
-  constructor() { 
+  constructor(
+    private toastr: ToastrService,
+  ) {
   }
 
   enviarAlerta(tipo: SweetAlertIcon, titulo: string, mensaje: string) {
@@ -15,6 +18,26 @@ export class NotificacionesService {
       title: titulo,
       text: mensaje
     });
+  }
+
+  enviarNotificacion(tipo: string, titulo: string, mensaje: string) {
+    switch (tipo) {
+      case 'success':
+        this.toastr.success(mensaje, titulo)
+        break
+      case 'error':
+        this.toastr.error(mensaje, titulo)
+        break
+      case 'warning':
+        this.toastr.warning(mensaje, titulo)
+        break
+      case 'info':
+        this.toastr.info(mensaje, titulo)
+        break
+      default:
+        this.toastr.show(mensaje, titulo)
+        break
+    }
   }
 
   enviarAlertaConfirmacion(title: string, mensaje: string) {

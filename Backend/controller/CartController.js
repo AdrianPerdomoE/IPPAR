@@ -35,7 +35,7 @@ var controller = {
 
             if (!cartFound) return res.status(200).send({ message: 'El carrito no existe' })
 
-            return res.status(200).send({ cartFound: cartFound });
+            return res.status(200).send({ cart: cartFound });
 
         })
     }
@@ -43,25 +43,21 @@ var controller = {
     updatecart: function (req, res) {
         var cartId = req.params.id;
         var update = req.body;
-
         Cart.findByIdAndUpdate(cartId, update, { new: true }, (err, cartUpdated) => {
             if (err) return res.status(500).send({ message: 'Error al actualizar' });
 
             if (!cartUpdated) return res.status(404).send({ message: 'No se ha podido actualizar' });
 
             return res.status(200).send({
-                cartUpdated: cartUpdated
+                cart: cartUpdated
             })
         })
     },
     emptyCart: function (req, res) {
-        let cartId = req.params.id;
-        let UserId = req.parms.user;
-        let update = new Cart();
-        carrito.cartItems = [];
-        carrito.userId = userId;
-        carrito.toPay =0;
-        Cart.findByIdAndUpdate(cartId, update, { new: true }, (err, cartUpdated) => {
+        let update = req.body;
+        update.cartItems = [];
+        update.toPay = 0;
+        Cart.findByIdAndUpdate(update._id, update, { new: true }, (err, cartUpdated) => {
             if (err) return res.status(500).send({ message: 'Error al actualizar' });
 
             if (!cartUpdated) return res.status(404).send({ message: 'No se ha podido actualizar' });

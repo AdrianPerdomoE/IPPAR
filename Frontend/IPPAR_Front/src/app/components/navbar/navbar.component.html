@@ -36,7 +36,8 @@
 
       <!-- Search form -->
       <form class="d-flex input-group w-50 ms-lg-3 my-3 my-lg-0">
-        <input type="search" class="form-control" placeholder="Buscar" aria-label="Buscar" [(ngModel)]="search" [ngModelOptions]="{standalone: true}"/>
+        <input type="search" class="form-control" placeholder="Buscar" aria-label="Buscar" [(ngModel)]="search"
+          [ngModelOptions]="{standalone: true}" />
         <button class="btn btn-secondary" type="button" data-mdb-ripple-color="dark" (click)="searchRedirect()">
           <i class="fa fa-search fa-lg mb-1"></i>
         </button>
@@ -46,10 +47,10 @@
       <ul class="navbar-nav ms-auto d-flex flex-row mt-3 mt-lg-0">
         <li class="nav-item text-center mx-2 mx-lg-1">
           <a class="nav-link" [routerLink]="'carrito'" [routerLinkActive]="['active']">
-            <div  class="position-relative">
+            <div class="position-relative">
               <i class="fa fa-shopping-cart fa-lg mb-1"></i>
               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                0
+                ...
               </span>
             </div>
             Carrito
@@ -76,7 +77,7 @@
             <div>
               <i class="fa fa-times" aria-hidden="true"></i>
             </div>
-            Cerrar 
+            Cerrar
           </a>
         </li>
       </ul>

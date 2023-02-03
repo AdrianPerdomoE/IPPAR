@@ -21,9 +21,9 @@ export class CartService {
     return this._http.post(`${this.url}saveCart`, params, { headers: headers })
   }
 
-  getCart(): Observable<any> {
+  getCart(id: string): Observable<any> {
     let headers = new HttpHeaders().set("Content-Type", "application/json");
-    return this._http.get(`${this.url}getCart/:userId`, { headers: headers });
+    return this._http.get(`${this.url}getCart/${id}`, { headers: headers });
   }
 
   updateCar(cart: Cart): Observable<any> {
@@ -32,9 +32,17 @@ export class CartService {
     return this._http.put(`${this.url}updateCart/${cart._id}`, params, { headers: headers });
   }
 
-  emptyCart(id: string, userId: string): Observable<any> {
+  calculateNewToPay(cart: Cart) {
+    if (cart.cartItems.length == 0) {
+      cart.toPay = 0
+      return
+    }
+    cart.toPay = cart.cartItems.map(itm => { return itm.amount * itm.item.price }).reduce((prev, curr) => { return curr + prev })
+  }
+  emptyCart(cart: Cart): Observable<any> {
+    let params = JSON.stringify(cart)
     let headers = new HttpHeaders().set("Content-Type", "application/json");
-    return this._http.put(`${this.url}emptyCart/${id}/${userId}`, { headers: headers });
+    return this._http.put(`${this.url}emptyCart`, params, { headers: headers });
   }
 
   takeOutCartItem(index: number, amount: number, cart: Cart): Cart {
@@ -46,17 +54,18 @@ export class CartService {
     else {
       cartItem.amount -= amount
     }
-    cart.toPay = cart.cartItems.map(itm => { return itm.amount * itm.item.price }).reduce((prev, curr) => { return curr + prev })
+    this.calculateNewToPay(cart)
     return cart;
   }
   removeCartItem(index: number, cart: Cart): void {
-    cart.cartItems = cart.cartItems.filter((item, ind) => { ind != index })
-
+    cart.cartItems = cart.cartItems.filter((item, ind) => { return ind != index })
+    this.calculateNewToPay(cart)
   }
   addCarItem(product: Product, amount: number, storeName: string, storeId: string, cart: Cart): Cart {
     let result = this.lookForItem(product, cart)
     if (this.lookForItem(product, cart) >= 0) {
       cart.cartItems[result].amount += amount
+      this.calculateNewToPay(cart)
       return cart;
     }
     let newCartItem = new CartItem(product, amount, storeName, storeId)

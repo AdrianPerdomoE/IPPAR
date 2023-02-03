@@ -32,6 +32,6 @@ router.get('/getStores', storeController.getStores)
 //Rutas para carrito
 router.post('/saveCart', cartController.saveCart);
 router.get('/getCart/:userId', cartController.getCart);
-router.put('/updateCart/:id', cartController.saveCart);
+router.put('/updateCart/:id', cartController.updatecart);
 router.put('/emptyCart/:id/:user', cartController.emptyCart);
 module.exports = router;

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/User';
+import { Sesion } from '../models/Sesion';
 
 @Injectable({
   providedIn: 'root'
@@ -8,28 +9,58 @@ export class SesionServiceService {
 
   constructor() { }
 
-  logSesion(user: User) {
-    let userString = JSON.stringify(user)
-    sessionStorage.setItem('USER', userString)
+  logSesion(user: User):void {
+    let newSesion = new Sesion(user,Sesion.GENERAL)
+    let sesionString = JSON.stringify(newSesion)
+    sessionStorage.setItem('SESION', sesionString)
   }
-  logOut() {
-    sessionStorage.removeItem('USER');
+  logOut():void {
+    sessionStorage.removeItem('SESION');
   }
 
-  confirmOpenSesion() {
-    let userString = sessionStorage.getItem('USER')
-    if (userString) {
+  confirmOpenSesion():Boolean {
+    let sesionString = sessionStorage.getItem('SESION')
+    if (sesionString) {
       return true
     }
     return false
   }
-  getCurrentUser() {
-    let userString = sessionStorage.getItem('USER')
-    if (userString) {
-      let user = JSON.parse(userString)
-      return user
+  getCurrentUser():User|undefined {
+    let sesionString = sessionStorage.getItem('SESION')
+    if (sesionString) {
+      let sesion:Sesion = JSON.parse(sesionString)
+      return sesion.CurrentUser
     }
-    return null
+    return undefined
 
   }
+  getSearchLevel():string|undefined{
+    let sesionString = sessionStorage.getItem('SESION')
+    if (sesionString) {
+      let sesion:Sesion = JSON.parse(sesionString)
+      return sesion.searchLevel
+    }
+    return undefined
+  }
+  setSearchLevelGeneral():void{
+    let sesionSTR = sessionStorage.getItem('SESION')
+    if (sesionSTR) {
+      let sesion:Sesion = JSON.parse(sesionSTR)
+      sesion.searchLevel = Sesion.INSIDE
+      let sesionString = JSON.stringify(sesion)
+      sessionStorage.setItem('SESION',sesionString)
+    }
+  
+  }
+  setSearchLevelInside():void{
+    let sesionSTR = sessionStorage.getItem('SESION')
+    if (sesionSTR) {
+      let sesion:Sesion = JSON.parse(sesionSTR)
+      sesion.searchLevel = Sesion.INSIDE
+      let sesionString = JSON.stringify(sesion)
+      sessionStorage.setItem('SESION',sesionString)
+    }
+  
+  }
 }
+

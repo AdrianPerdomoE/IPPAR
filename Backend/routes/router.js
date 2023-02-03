@@ -20,6 +20,7 @@ router.delete('/user/:id', userController.deleteUser);
 //Rutas para producto
 router.post('/saveProduct', productController.saveProduct);
 router.get("/GetProduct/:id", productController.getProduct);
+router.get("/GetProducts", productController.getProducts);
 router.get("/GetProducts/:owner", productController.getProductsOwner);
 router.get('/searchProduct/:searchBy', productController.getProductSearch);
 router.get('/search/:searchBy/:owner', productController.getProductSearchOwner);

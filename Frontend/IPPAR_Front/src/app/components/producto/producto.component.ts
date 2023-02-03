@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/models/Product';
-import { User } from 'src/app/models/User';
 import { CartService } from 'src/app/services/cart-service.service';
 import { NotificacionesService } from 'src/app/services/notificaciones-service.service';
 import { SesionServiceService } from 'src/app/services/sesion-service.service';

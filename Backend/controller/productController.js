@@ -31,6 +31,17 @@ var controller = {
             return res.status(200).send({ product });
         });
     },
+    getProducts: (req, res) => {
+        Product.find().exec((err, products) => {
+            if (err) {
+                return res.status(500).send({ msg: "Ha ocurrido un error cargando los productos" });
+            }
+            if (!products) {
+                return res.status(404).send({ msg: "No existen productos" });
+            }
+            return res.status(200).send({ products });
+        });
+    },
     getProductsOwner: (req, res) => {
         let owner = req.params.owner
         Product.find({ owner: owner }).exec((err, products) => {

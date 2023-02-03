@@ -34,7 +34,7 @@ import { CarritoComponent } from './components/carrito/carrito.component';
     TiendaCardComponent,
     TiendaComponent,
     ProductoComponent,
-    CarritoComponent
+    CarritoComponent,
   ],
   imports: [
     BrowserModule,

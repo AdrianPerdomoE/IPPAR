@@ -23,6 +23,10 @@ export class ProductServiceService {
     let headers = new HttpHeaders().set("Content-Type", "application/json");
     return this._http.get(`${this.url}/getProduct/${id}`, { headers: headers });
   }
+  getProducts(): Observable<any> {
+    let headers = new HttpHeaders().set("Content-Type", "application/json");
+    return this._http.get(`${this.url}/GetProducts/`, { headers: headers });
+  }
   getProductsOwner(owner: string): Observable<any> {
     let headers = new HttpHeaders().set("Content-Type", "application/json");
     return this._http.get(`${this.url}/GetProducts/${owner}`, { headers: headers });

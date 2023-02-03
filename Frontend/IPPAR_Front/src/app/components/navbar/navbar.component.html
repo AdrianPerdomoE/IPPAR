@@ -39,7 +39,7 @@
         <input type="search" class="form-control w-50" placeholder="Buscar..." aria-label="Buscar..."
           [(ngModel)]="query"
           [ngModelOptions]="{standalone: true}" (keyup)="search()"  />
-        <select class="form-select form-select-sm" name="tipo-busqueda" [(ngModel)]="type">
+        <select class="form-select form-select-sm" name="tipo-busqueda" [(ngModel)]="type" (change)="search()">
           <option value="tiendas">Tiendas</option>
           <option value="productos">Productos</option>
         </select>

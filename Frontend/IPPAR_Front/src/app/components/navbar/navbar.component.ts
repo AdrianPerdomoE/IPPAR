@@ -43,10 +43,10 @@ export class NavbarComponent implements OnInit {
 
   search() {
     if (this.type === 'productos') {
-      this._router.navigate(['/product'], { queryParams: { query: this.query } })
+      this._router.navigate(['/home'], { queryParams: { query: this.query, type: 'products' } })
     }
     else {
-      this._router.navigate(['/home'], { queryParams: { query: this.query } })
+      this._router.navigate(['/home'], { queryParams: { query: this.query, type: 'stores' } })
     }
   }
 }

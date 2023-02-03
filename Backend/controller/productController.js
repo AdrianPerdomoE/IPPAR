@@ -1,6 +1,24 @@
 "use strict"
 var Product = require("../models/Product");
 var controller = {
+    saveProduct: (req, res) => {
+        let product = new Product();
+        var params = req.body;
+        product.name = params.name;
+        product.image = params.image
+        product.price = params.price
+        product.description = params.description
+        product.owner = params.owner
+        product.save((err, productSaved) => {
+            if (err) {
+                return res.status(500).send({ msg: 'Error en la petición' })
+            }
+            if (!productSaved) {
+                return res.status(404).send({ msg: 'No se ha podido guardar el producto' })
+            }
+            return res.status(200).send({ msg: 'Producto agregado exitosamente', product: productSaved })
+        })
+    },
     getProduct: (req, res) => {
         var product_id = req.params.id;
         Product.findById(product_id, (err, product) => {
@@ -15,7 +33,7 @@ var controller = {
     },
     getProductsOwner: (req, res) => {
         let owner = req.params.owner
-        Product.find({owner:owner}).exec((err, products) => {
+        Product.find({ owner: owner }).exec((err, products) => {
             if (err) {
                 return res.status(500).send({ msg: "Ha ocurrido un error cargando los productos" });
             }
@@ -29,7 +47,7 @@ var controller = {
     getProductSearchOwner: (req, res) => {
         let productName = new RegExp(`${req.params.searchBy}`, "i")
         let owner = req.params.owner
-        Product.find({name:productName,owner:owner}).exec((err, products) => {
+        Product.find({ name: productName, owner: owner }).exec((err, products) => {
             if (err) {
                 return res.status(500).send({ msg: "Ha ocurrido un error cargando los productos" });
             }
@@ -39,7 +57,7 @@ var controller = {
             return res.status(200).send({ products });
         });
     },
-    getProductSearch: (req, res) => { 
+    getProductSearch: (req, res) => {
         let productName = new RegExp(`${req.params.searchBy}`, "i")
         Product.find({ name: productName }).exec((err, products) => {
             if (err) {

@@ -4,6 +4,8 @@ import { UserService } from 'src/app/services/user-service.service';
 import { Router } from '@angular/router';
 import { NotificacionesService } from 'src/app/services/notificaciones-service.service';
 import { SesionServiceService } from 'src/app/services/sesion-service.service';
+import { CartService } from 'src/app/services/cart-service.service';
+import { Cart } from 'src/app/models/Cart';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -18,7 +20,8 @@ export class RegisterComponent implements OnInit {
     private userService: UserService,
     private _router: Router,
     private notifService: NotificacionesService,
-    private sesionService: SesionServiceService
+    private sesionService: SesionServiceService,
+    private cartService:CartService
   ) {
 
   }
@@ -55,12 +58,15 @@ export class RegisterComponent implements OnInit {
           this.userService.registerUser(this.user).subscribe(
             response => {
               if (response.user) {
-                this._router.navigate(['/login']);
+                this.cartService.saveCart(new Cart('',[],response.user._id,0)).subscribe(respon=>{
+                  this._router.navigate(['/login']);
                 this.notifService.enviarAlerta(
                   'success',
                   'Mensaje',
                   'Cuenta creada correctamente. Ya puedes iniciar sesión.'
                 );
+                })
+                
               }
               else {
                 this.notifService.enviarAlerta(

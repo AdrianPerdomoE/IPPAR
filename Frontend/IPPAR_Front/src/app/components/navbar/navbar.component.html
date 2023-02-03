@@ -36,8 +36,8 @@
 
       <!-- Search form -->
       <form class="d-flex input-group w-50 ms-lg-3 my-3 my-lg-0">
-        <input type="search" class="form-control" placeholder="Buscar" aria-label="Buscar" />
-        <button class="btn btn-secondary" type="button" data-mdb-ripple-color="dark">
+        <input type="search" class="form-control" placeholder="Buscar" aria-label="Buscar" [(ngModel)]="search" [ngModelOptions]="{standalone: true}"/>
+        <button class="btn btn-secondary" type="button" data-mdb-ripple-color="dark" (click)="searchRedirect()">
           <i class="fa fa-search fa-lg mb-1"></i>
         </button>
       </form>

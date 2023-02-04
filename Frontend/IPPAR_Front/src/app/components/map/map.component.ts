@@ -6,8 +6,8 @@ import { StoreServiceService } from 'src/app/services/store-service.service';
 import { Store } from 'src/app/models/Store';
 import { Router } from '@angular/router';
 
-export const DEFAULT_LAT = 6.2357504;
-export const DEFAULT_LON = -75.61216;
+export var DEFAULT_LAT = 6.2357504;
+export var DEFAULT_LON = -75.61216;
 export const TITULO = 'Proyecto';
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
@@ -28,6 +28,10 @@ export class MapComponent implements OnInit {
   constructor(private storeService: StoreServiceService, private _router: Router) { }
 
   ngOnInit(): void {
+    this.getPosition().then(pos => {
+      this.lat = pos.lat
+      this.lon = pos.lng
+    });
 
     this.storeService.getStores().subscribe(response => {
       if (response.stores) {
@@ -35,6 +39,19 @@ export class MapComponent implements OnInit {
         this.initMap();
       }
     })
+  }
+  private getPosition(): Promise<any> {
+    return new Promise((resolve, reject) => {
+
+      navigator.geolocation.getCurrentPosition(resp => {
+
+        resolve({ lng: resp.coords.longitude, lat: resp.coords.latitude });
+      },
+        err => {
+          reject(err);
+        });
+    });
+
   }
 
   private initMap(): void {
@@ -78,6 +95,7 @@ export class MapComponent implements OnInit {
       })
       marker.addTo(this.map);
     })
+
 
 
 

@@ -58,7 +58,7 @@ export class MapComponent implements OnInit {
     //configuración del mapa
     this.map = L.map('map', {
       center: [this.lat, this.lon],
-      attributionControl: false,
+      attributionControl: true,
       zoom: 14
     });
 
@@ -88,7 +88,7 @@ export class MapComponent implements OnInit {
     marker.addTo(this.map);*/
 
     this.tiendas.forEach(tienda => {
-      let marker = L.marker([tienda.latitud, tienda.longitud]).bindPopup(tienda.name);
+      let marker = L.marker([tienda.latitud, tienda.longitud]).bindPopup(`<b> ${tienda.name}</b>`).openPopup();
       marker.addEventListener('dblclick', () => {
         let texto = '/tienda/' + tienda.name + "/" + tienda._id
         this._router.navigate([texto])
@@ -105,14 +105,18 @@ export class MapComponent implements OnInit {
 
 
     //ruta
+    var popup = L.popup()
+      .setLatLng([this.lat + 0.004, this.lon])
+      .setContent("Posicion actual")
+      .openOn(this.map);
     L.Routing.control({
       router: L.Routing.osrmv1({
         serviceUrl: `https://router.project-osrm.org/route/v1/`
       }),
-      showAlternatives: true,
+      showAlternatives: false,
       fitSelectedRoutes: false,
       show: false,
-      routeWhileDragging: true,
+      routeWhileDragging: false,
       waypoints: [
         L.latLng(this.lat, this.lon),
         L.latLng(lat, lon)
@@ -120,5 +124,5 @@ export class MapComponent implements OnInit {
     }).addTo(this.map);
     tiles.addTo(this.map);
   }
-
+  
 }

@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -41,8 +39,6 @@ import { CarritoComponent } from './components/carrito/carrito.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    CommonModule,
-    BrowserAnimationsModule,
     ToastrModule.forRoot()
   ],
   providers: [],

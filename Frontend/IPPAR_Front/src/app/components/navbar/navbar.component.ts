@@ -13,7 +13,7 @@ export class NavbarComponent implements OnInit {
   public query: string = ''
   public type: string = 'tiendas'
 
-  public carrito = new Cart('', [], '', 0)
+  public carrito = new Cart('', [], '', 0,0)
 
   constructor(
     private _router: Router,
@@ -30,13 +30,7 @@ export class NavbarComponent implements OnInit {
       }
     })
   }
-
-  calcularNumeroItems() {
-    let cantidad: number = 0
-    this.carrito.cartItems.map(item => cantidad += item.amount)
-    return cantidad
-  }
-
+  
   logOut() {
     this.sesionService.logOut()
   }

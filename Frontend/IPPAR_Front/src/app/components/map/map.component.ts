@@ -2,6 +2,9 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import { icon, Marker } from 'leaflet';
+import { StoreServiceService } from 'src/app/services/store-service.service';
+import { Store } from 'src/app/models/Store';
+import { Router } from '@angular/router';
 
 export const DEFAULT_LAT = 6.2357504;
 export const DEFAULT_LON = -75.61216;
@@ -20,11 +23,18 @@ export class MapComponent implements OnInit {
   @Input() lat: number = DEFAULT_LAT;
   @Input() lon: number = DEFAULT_LON;
   @Input() titulo: string = TITULO;
+  tiendas: Store[] = []
 
-  constructor() { }
+  constructor(private storeService: StoreServiceService, private _router: Router) { }
 
   ngOnInit(): void {
-    this.initMap();
+
+    this.storeService.getStores().subscribe(response => {
+      if (response.stores) {
+        this.tiendas = response.stores
+        this.initMap();
+      }
+    })
   }
 
   private initMap(): void {
@@ -57,12 +67,23 @@ export class MapComponent implements OnInit {
     //marca con pop up
     const lon = this.lon + 0.009;
     const lat = this.lat + 0.009;
-    const marker = L.marker([lat + 0.005, lon + 0.005]).bindPopup(this.titulo);
-    marker.addTo(this.map);
+    /*const marker = L.marker([lat + 0.005, lon + 0.005]).bindPopup(this.titulo);
+    marker.addTo(this.map);*/
+
+    this.tiendas.forEach(tienda => {
+      let marker = L.marker([tienda.latitud, tienda.longitud]).bindPopup(tienda.name);
+      marker.addEventListener('dblclick', () => {
+        let texto = '/tienda/' + tienda.name + "/" + tienda._id
+        this._router.navigate([texto])
+      })
+      marker.addTo(this.map);
+    })
+
+
 
     //marca forma de circulo
-    const mark = L.circleMarker([this.lat, this.lon]).addTo(this.map);
-    mark.addTo(this.map);
+    /*const mark = L.circleMarker([this.lat, this.lon]).addTo(this.map);
+    mark.addTo(this.map);*/
 
 
     //ruta

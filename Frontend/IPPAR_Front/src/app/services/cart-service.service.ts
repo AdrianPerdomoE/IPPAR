@@ -52,10 +52,10 @@ export class CartService {
       this.removeCartItem(index, cart)
     }
     else if (amount > 100) {
-    cartItem.amount = 100
+      cartItem.amount = 100
     }
     else {
-    cartItem.amount = amount
+      cartItem.amount = amount
     }
     this.calculateNewToPay(cart)
     return cart;

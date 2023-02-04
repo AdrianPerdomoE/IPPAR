@@ -5,7 +5,8 @@ var Schema = mongoose.Schema;
 var Cart = Schema({
     cartItems:Array,
     userId:String,
-    toPay:Number    
+    toPay:Number ,
+    cantidadItems:Number  
 });
 
 module.exports = mongoose.model("Carts", Cart);

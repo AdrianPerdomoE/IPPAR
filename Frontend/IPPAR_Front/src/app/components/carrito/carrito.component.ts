@@ -9,7 +9,7 @@ import { SesionServiceService } from 'src/app/services/sesion-service.service';
   styleUrls: ['./carrito.component.css']
 })
 export class CarritoComponent implements OnInit {
-  public carrito = new Cart('', [], '', 0)
+  public carrito = new Cart('', [], '', 0,0)
   constructor(private cartService: CartService, private sesionService: SesionServiceService) { }
 
   ngOnInit(): void {
@@ -22,15 +22,16 @@ export class CarritoComponent implements OnInit {
     })
   }
 
-  calcularNumeroItems() {
+  calcularNumeroItems(car:Cart) {
     let cantidad: number = 0
-    this.carrito.cartItems.map(item => cantidad += item.amount)
-    return cantidad
+    car.cartItems.map(item => cantidad += item.amount)
+    car.cantidadItems = cantidad
   }
 
   cambiarCantidad(index: number, amount: string) {
     let value = Number(amount)
     let newCart = this.cartService.changeAmount(index, value, this.carrito)
+    this.calcularNumeroItems(newCart)
     this.cartService.updateCar(newCart).subscribe(resp => {
       console.log('Item sacado del carrito')
     })
@@ -38,6 +39,7 @@ export class CarritoComponent implements OnInit {
 
   eliminar(index: number) {
     this.cartService.removeCartItem(index, this.carrito);
+    this.calcularNumeroItems(this.carrito)
     this.cartService.updateCar(this.carrito).subscribe(resp => {
       console.log('Item eliminado del carrito')
     })

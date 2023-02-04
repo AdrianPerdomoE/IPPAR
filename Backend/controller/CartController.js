@@ -8,6 +8,7 @@ var controller = {
         carrito.cartItems = params.cartItems;
         carrito.userId = params.userId;
         carrito.toPay = params.toPay;
+        carrito.cantidadItems = params.cantidadItems
         carrito.save((err, cartSave) => {
             if (err) {
                 return res.status(500).send({ msg: 'Error en la petición' })

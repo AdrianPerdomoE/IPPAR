@@ -58,7 +58,7 @@ export class RegisterComponent implements OnInit {
           this.userService.registerUser(this.user).subscribe(
             response => {
               if (response.user) {
-                this.cartService.saveCart(new Cart('',[],response.user._id,0)).subscribe(respon=>{
+                this.cartService.saveCart(new Cart('',[],response.user._id,0,0)).subscribe(respon=>{
                   this._router.navigate(['/login']);
                 this.notifService.enviarAlerta(
                   'success',

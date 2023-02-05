@@ -13,11 +13,11 @@ const iconUrl = 'assets/marker-icon.png';
 const shadowUrl = 'assets/marker-shadow.png';
 
 @Component({
-  selector: 'app-map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+  selector: 'app-pedido',
+  templateUrl: './pedido.component.html',
+  styleUrls: ['./pedido.component.css']
 })
-export class MapComponent implements OnInit {
+export class PedidoComponent implements OnInit {
   private map: any;
   @Input() lat: number = DEFAULT_LAT;
   @Input() lon: number = DEFAULT_LON;
@@ -123,5 +123,4 @@ export class MapComponent implements OnInit {
     }).addTo(this.map);
     tiles.addTo(this.map);
   }
-  
 }

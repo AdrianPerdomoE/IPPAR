@@ -7,6 +7,7 @@ var userController = require('../controller/userController');
 var productController = require('../controller/productController')
 var storeController = require('../controller/storeController')
 var cartController = require('../controller/CartController')
+var orderController = require('../controller/orderController')
 var router = express.Router();
 
 //Rutas para el usuario
@@ -35,4 +36,10 @@ router.post('/saveCart', cartController.saveCart);
 router.get('/getCart/:userId', cartController.getCart);
 router.put('/updateCart/:id', cartController.updatecart);
 router.put('/emptyCart/:id/:user', cartController.emptyCart);
+
+//Routes para pedido
+router.post('saveOrder', orderController.saveOrder);
+router.post('getOrders', orderController.getOrders);
+router.get('getOrder/:id', orderController.getOrder);
+
 module.exports = router;

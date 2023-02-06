@@ -6,7 +6,7 @@ var Order = Schema({
     userId: String,
     generateDate: Date,
     deliveryDate: Date,
-    orderItems: Array,
+    orderGroups: Array,
     toPay: Number
 });
 

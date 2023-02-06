@@ -3,21 +3,21 @@
         <h3 class="d-flex justify-content-center">
             Historial de pedidos
         </h3>
-        <span class="text-muted d-flex justify-content-center">¡Haz realizado 3 pedidos!</span>
+        <span class="text-muted d-flex justify-content-center">¡Haz realizado {{pedidos.length}} pedidos!</span>
     </div>
 
     <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 justify-content-center">
         <ul class="list-group w-75">
             <li class="list-group-item list-group-item-action d-flex gap-3 py-3"
-                *ngFor="let cartItem of [1,2,3];let indice=index">
+                *ngFor="let pedido of pedidos;let indice=index">
                 <i class="fa fa-box-open"></i>
                 <div class="d-flex gap-2 w-100 justify-content-between">
                     <div>
-                        <h6 class="mb-0">Pedido #94903943939</h6>
-                        <p class="mb-0 opacity-75">Precio total: $100.000</p>
+                        <h6 class="mb-0" routerLink='/pedido/{{pedido._id}}'>Pedido #{{pedido._id}}</h6>
+                        <p class="mb-0 opacity-75">Precio total: {{String(pedido.toPay)}} </p>
                         <span class="badge rounded-pill text-bg-warning info-tienda">
                             <i class="fa fa-calendar fa-sm"></i>
-                            05/02/2023
+                            {{pedido.generateDate}}
                         </span>
                     </div>
                 </div>

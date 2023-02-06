@@ -23,11 +23,11 @@ export class StoreServiceService {
 
   getStore(id: string): Observable<any> {
     let headers = new HttpHeaders().set("Content-Type", "application/json");
-    return this._http.get(`${this.url}/getStore/${id}`, { headers: headers });
+    return this._http.get(`${this.url}getStore/${id}`, { headers: headers });
   }
 
   getStores(): Observable<any> {
     let headers = new HttpHeaders().set("Content-Type", "application/json");
-    return this._http.get(`${this.url}/getStores`, { headers: headers });
+    return this._http.get(`${this.url}getStores`, { headers: headers });
   }
 }

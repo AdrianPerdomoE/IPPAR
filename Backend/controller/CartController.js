@@ -58,6 +58,7 @@ var controller = {
         let update = req.body;
         update.cartItems = [];
         update.toPay = 0;
+        update.cantidadItems = 0;
         Cart.findByIdAndUpdate(update._id, update, { new: true }, (err, cartUpdated) => {
             if (err) return res.status(500).send({ message: 'Error al actualizar' });
 

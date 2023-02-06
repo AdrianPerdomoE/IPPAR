@@ -4,12 +4,13 @@ var Order = require('../models/Order');
 var controller = {
     saveOrder: (req, res) => {
         let order = new Order();
+        var params = req.body;
         order.userId = params.userId;
         order.generateDate = params.generateDate;
         order.deliveryDate = params.deliveryDate;
         order.orderGroups = params.orderGroups;
-        order.topay = params.toPay;
-        var params = req.body;
+        order.toPay = params.toPay;
+      
 
         order.save((err, orderSave) => {
             if (err) {
@@ -36,13 +37,13 @@ var controller = {
     },
 
     getOrder: function (req, res) {
-        var orderId = req.params.orderId;
+        var orderId = req.params.id;
 
         if (!orderId) {
             return req.status(404).send({ message: 'El pedido no existe' })
         }
 
-        Order.findOne({ orderId }).exec((err, orderFound) => {
+        Order.findById(orderId).exec((err, orderFound) => {
             if (err) {
                 return res.status(500).send({ message: 'Error al devolver los datos.' });
             }

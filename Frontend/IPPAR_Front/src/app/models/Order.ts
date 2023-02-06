@@ -7,6 +7,6 @@ export class Order {
         public generateDate: Date,
         public deliveryDate: Date,
         public orderGroups: OrderGroup[],
-        public toPay: number
+        public  toPay: number
     ) { }
 }

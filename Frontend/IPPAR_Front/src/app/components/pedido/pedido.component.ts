@@ -3,7 +3,9 @@ import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import { StoreServiceService } from 'src/app/services/store-service.service';
 import { Store } from 'src/app/models/Store';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { OrderServiceService } from 'src/app/services/order-service.service';
+import { Order } from 'src/app/models/Order';
 
 export var DEFAULT_LAT = 6.2357504;
 export var DEFAULT_LON = -75.61216;
@@ -19,25 +21,40 @@ const shadowUrl = 'assets/marker-shadow.png';
 })
 export class PedidoComponent implements OnInit {
   private map: any;
-  @Input() lat: number = DEFAULT_LAT;
-  @Input() lon: number = DEFAULT_LON;
-  @Input() titulo: string = TITULO;
-  tiendas: Store[] = []
-
-  constructor(private storeService: StoreServiceService, private _router: Router) { }
-
-  ngOnInit(): void {
+  public camino: any[] = []
+  lat = 0
+  lon = 0
+  pedido = new Order('', '', new Date, new Date, [], 0)
+  constructor(private storeService: StoreServiceService, private actRoute: ActivatedRoute, private OrderService: OrderServiceService) {
     this.getPosition().then(pos => {
       this.lat = pos.lat
       this.lon = pos.lng
+      this.camino.push(L.latLng(this.lat, this.lon))
+      this.initMap();
     });
+  }
 
-    this.storeService.getStores().subscribe(response => {
-      if (response.stores) {
-        this.tiendas = response.stores
-        this.initMap();
+  cantidadItems() {
+    if (this.pedido.orderGroups.length == 0) return 0
+    return this.pedido.orderGroups.map(OG => { return OG.amounts.reduce((pr, cr) => { return pr + cr }) }).reduce((prev, curr) => { return prev + curr })
+  }
+  ngOnInit(): void {
+    let id = this.actRoute.snapshot.params['id'];
+    this.OrderService.getOrder(id).subscribe(resp => {
+      if (resp.order) {
+        this.pedido = resp.order
       }
+
     })
+    this.pedido.orderGroups.forEach(val => {
+      this.storeService.getStore(val.storeId).subscribe(response => {
+        if (response.stores) {
+          this.camino.push(L.latLng(this.lat, this.lon))
+
+        }
+      })
+    })
+
   }
   private getPosition(): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -80,28 +97,6 @@ export class PedidoComponent implements OnInit {
       attribution: '&copy; <a href="https://1938.com.es">Web Inteligencia Artificial</a>'
     });
 
-    //marca con pop up
-    const lon = this.lon + 0.009;
-    const lat = this.lat + 0.009;
-    /*const marker = L.marker([lat + 0.005, lon + 0.005]).bindPopup(this.titulo);
-    marker.addTo(this.map);*/
-
-    this.tiendas.forEach(tienda => {
-      let marker = L.marker([tienda.latitud, tienda.longitud]).bindPopup(`<b> ${tienda.name}</b>`).openPopup();
-      marker.addEventListener('dblclick', () => {
-        let texto = '/tienda/' + tienda.name + "/" + tienda._id
-        this._router.navigate([texto])
-      })
-      marker.addTo(this.map);
-    })
-
-
-
-
-    //marca forma de circulo
-    /*const mark = L.circleMarker([this.lat, this.lon]).addTo(this.map);
-    mark.addTo(this.map);*/
-
     var iconStore = L.icon({
       iconRetinaUrl: 'https://i.imgur.com/dgiLnKP.png',
       iconUrl: 'https://i.imgur.com/dgiLnKP.png',
@@ -115,10 +110,8 @@ export class PedidoComponent implements OnInit {
     L.Marker.prototype.options.icon = iconStore;
 
     //ruta
-    var popup = L.popup()
-      .setLatLng([this.lat + 0.004, this.lon])
-      .setContent("Posicion actual")
-      .openOn(this.map);
+
+
     L.Routing.control({
       router: L.Routing.osrmv1({
         serviceUrl: `https://router.project-osrm.org/route/v1/`
@@ -127,10 +120,7 @@ export class PedidoComponent implements OnInit {
       fitSelectedRoutes: false,
       show: false,
       routeWhileDragging: false,
-      waypoints: [
-        L.latLng(this.lat, this.lon),
-        L.latLng(lat, lon)
-      ]
+      waypoints: this.camino
     }).addTo(this.map);
     tiles.addTo(this.map);
   }

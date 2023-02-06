@@ -35,11 +35,11 @@ router.get('/getStores', storeController.getStores)
 router.post('/saveCart', cartController.saveCart);
 router.get('/getCart/:userId', cartController.getCart);
 router.put('/updateCart/:id', cartController.updatecart);
-router.put('/emptyCart/:id/:user', cartController.emptyCart);
+router.put('/emptyCart', cartController.emptyCart);
 
 //Routes para pedido
-router.post('saveOrder', orderController.saveOrder);
-router.post('getOrders', orderController.getOrders);
-router.get('getOrder/:id', orderController.getOrder);
+router.post('/saveOrder', orderController.saveOrder);
+router.get('/getOrders', orderController.getOrders);
+router.get('/getOrder/:id', orderController.getOrder);
 
 module.exports = router;

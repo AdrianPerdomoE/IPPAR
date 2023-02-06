@@ -41,6 +41,7 @@
             </li>
         </ul>
         <h1 class="mb-0">Total a pagar: <br> $ {{(carrito.toPay).toLocaleString()}}</h1>
-        <button class="btn btn-outline-success btn-sm" type="button" id="button">Pagar</button>
+        <button class="btn btn-outline-success btn-sm" type="button" id="button" (click)="generarPedido()"
+            [disabled]="carrito.cantidadItems==0">Pagar</button>
     </div>
 </div>

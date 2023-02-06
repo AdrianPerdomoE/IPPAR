@@ -1,12 +1,12 @@
-import { OrderItem } from "./OrderItem";
+import { OrderSeccion } from "./orderSeccion";
 
 export class Order {
     constructor(
         public _id: string,
         public userId: string,
-        public generateDate: string,
-        public deliveryDate: string,
-        public orderItems: OrderItem[],
+        public generateDate: Date,
+        public deliveryDate: Date,
+        public orderSeccions: OrderSeccion[],
         public toPay: number
     ) { }
 }

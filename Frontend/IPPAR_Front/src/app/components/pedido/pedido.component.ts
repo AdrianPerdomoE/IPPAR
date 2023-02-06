@@ -9,7 +9,7 @@ export var DEFAULT_LAT = 6.2357504;
 export var DEFAULT_LON = -75.61216;
 export const TITULO = 'Proyecto';
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
-const iconUrl = 'assets/marker-icon.png';
+const iconUrl = 'https://i.imgur.com/KnOzjpz.png';
 const shadowUrl = 'assets/marker-shadow.png';
 
 @Component({
@@ -102,6 +102,17 @@ export class PedidoComponent implements OnInit {
     /*const mark = L.circleMarker([this.lat, this.lon]).addTo(this.map);
     mark.addTo(this.map);*/
 
+    var iconStore = L.icon({
+      iconRetinaUrl,
+      iconUrl: 'https://i.imgur.com/dgiLnKP.png',
+      shadowUrl,
+      iconSize: [35, 35],
+      iconAnchor: [19, 35],
+      popupAnchor: [1, -34],
+      tooltipAnchor: [16, -28],
+      shadowSize: [41, 41]
+    });
+    L.Marker.prototype.options.icon = iconStore;
 
     //ruta
     var popup = L.popup()

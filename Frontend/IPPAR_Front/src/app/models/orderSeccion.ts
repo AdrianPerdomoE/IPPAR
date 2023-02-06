@@ -1,12 +1,12 @@
 import { Product } from "./Product";
 
-export class OrderItem {
+export class OrderSeccion {
     constructor(
         public storeId: string,
         public storeName: string,
         public storeLat: string,
         public storeLon: string,
-        public item: Product,
+        public items: Product[],
         public amount: number
     ) { }
 }

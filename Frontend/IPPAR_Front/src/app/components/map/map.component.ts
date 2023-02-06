@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 export var DEFAULT_LAT = 6.2357504;
 export var DEFAULT_LON = -75.61216;
 export const TITULO = 'Proyecto';
-const iconRetinaUrl = 'assets/marker-icon-2x.png';
+const iconRetinaUrl = 'https://i.imgur.com/KnOzjpz.png';
 const iconUrl = 'https://i.imgur.com/KnOzjpz.png';
 const shadowUrl = 'assets/marker-shadow.png';
 
@@ -103,7 +103,7 @@ export class MapComponent implements OnInit {
     mark.addTo(this.map);*/
 
     var iconStore = L.icon({
-      iconRetinaUrl,
+      iconRetinaUrl: 'https://i.imgur.com/dgiLnKP.png',
       iconUrl: 'https://i.imgur.com/dgiLnKP.png',
       shadowUrl,
       iconSize: [35, 35],
@@ -134,5 +134,5 @@ export class MapComponent implements OnInit {
     }).addTo(this.map);
     tiles.addTo(this.map);
   }
-  
+
 }

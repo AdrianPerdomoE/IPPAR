@@ -62,15 +62,15 @@
           </a>
         </li>
         <li class="nav-item text-center mx-2 mx-lg-1">
-          <a class="nav-link" href="#!">
+          <a class="nav-link" [routerLink]="'pedidos'" [routerLinkActive]="['active']">
             <div>
-              <i class="fa fa-folder" aria-hidden="true"></i>
+              <i class="fa-solid fa-box fa-lg"></i>
             </div>
             Pedidos
           </a>
         </li>
         <li class="nav-item text-center mx-2 mx-lg-1">
-          <a class="nav-link" href="#!">
+          <a class="nav-link" [routerLink]="'cuenta'" [routerLinkActive]="['active']">
             <div>
               <i class="fa fa-user fa-lg mb-1"></i>
             </div>
@@ -80,7 +80,7 @@
         <li class="nav-item text-center mx-2 mx-lg-1" (click)="logOut()">
           <a class="nav-link" href="/login">
             <div>
-              <i class="fa fa-times" aria-hidden="true"></i>
+              <i class="fa-solid fa-right-from-bracket fa-lg"></i>
             </div>
             Cerrar
           </a>

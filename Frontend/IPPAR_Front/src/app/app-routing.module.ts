@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CarritoComponent } from './components/carrito/carrito.component';
+import { CuentaComponent } from './components/cuenta/cuenta.component';
 import { Error404Component } from './components/error404/error404.component';
 import { HomeComponent } from './components/home/home.component';
+import { ListaPedidosComponent } from './components/lista-pedidos/lista-pedidos.component';
 import { ListaTiendasComponent } from './components/lista-tiendas/lista-tiendas.component';
 import { LoginComponent } from './components/login/login.component';
 import { MapComponent } from './components/map/map.component';
@@ -18,7 +20,9 @@ const routes: Routes = [
       { path: 'map', component: MapComponent },
       { path: 'tienda/:name/:id', component: TiendaComponent },
       { path: 'carrito', component: CarritoComponent },
-      { path: 'pedido', component: PedidoComponent }
+      { path: 'pedidos', component: ListaPedidosComponent },
+      { path: 'pedido', component: PedidoComponent },
+      { path: 'cuenta', component: CuentaComponent }
     ]
   },
   { path: 'login', component: LoginComponent },

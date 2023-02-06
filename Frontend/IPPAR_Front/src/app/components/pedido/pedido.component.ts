@@ -66,8 +66,8 @@ export class PedidoComponent implements OnInit {
       iconRetinaUrl,
       iconUrl,
       shadowUrl,
-      iconSize: [25, 41],
-      iconAnchor: [12, 41],
+      iconSize: [40, 40],
+      iconAnchor: [19, 35],
       popupAnchor: [1, -34],
       tooltipAnchor: [16, -28],
       shadowSize: [41, 41]

@@ -1,4 +1,4 @@
-import { OrderSeccion } from "./orderSeccion";
+import { OrderGroup } from "./OrderGroup";
 
 export class Order {
     constructor(
@@ -6,7 +6,7 @@ export class Order {
         public userId: string,
         public generateDate: Date,
         public deliveryDate: Date,
-        public orderSeccions: OrderSeccion[],
+        public orderGroups: OrderGroup[],
         public toPay: number
     ) { }
 }

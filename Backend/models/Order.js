@@ -2,7 +2,7 @@
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema;
 
-var Cart = Schema({
+var Order = Schema({
     userId: String,
     generateDate: Date,
     deliveryDate: Date,

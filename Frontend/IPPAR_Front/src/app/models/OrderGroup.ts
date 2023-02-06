@@ -1,6 +1,6 @@
 import { Product } from "./Product";
 
-export class OrderSeccion {
+export class OrderGroup {
     constructor(
         public storeId: string,
         public storeName: string,

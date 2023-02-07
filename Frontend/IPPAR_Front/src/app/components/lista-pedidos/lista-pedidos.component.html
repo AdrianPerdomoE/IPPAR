@@ -14,10 +14,10 @@
                 <div class="d-flex gap-2 w-100 justify-content-between">
                     <div>
                         <h6 class="mb-0" routerLink='/pedido/{{pedido._id}}'>Pedido #{{pedido._id}}</h6>
-                        <p class="mb-0 opacity-75">Precio total: {{String(pedido.toPay)}} </p>
+                        <p class="mb-0 opacity-75">Precio total: ${{(pedido.toPay).toLocaleString()}} </p>
                         <span class="badge rounded-pill text-bg-warning info-tienda">
                             <i class="fa fa-calendar fa-sm"></i>
-                            {{pedido.generateDate}}
+                            {{toDateString(pedido.generateDate.toString())}}
                         </span>
                     </div>
                 </div>

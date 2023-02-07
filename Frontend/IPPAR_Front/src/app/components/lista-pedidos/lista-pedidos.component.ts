@@ -28,5 +28,13 @@ export class ListaPedidosComponent {
   String(value: number) {
     return `${value}`
   }
+
+  toDateString(string: string) {
+    let date = new Date(string)
+    let dateString = date.toLocaleDateString("es-CO", { day: '2-digit', month: '2-digit', year: 'numeric' })
+    let timeString = date.toLocaleTimeString("es-CO", { hour: '2-digit', minute: '2-digit', })
+    return dateString + " " + timeString
+  }
+
   constructor(private orderService: OrderServiceService, private sesionService: SesionServiceService) { }
 }

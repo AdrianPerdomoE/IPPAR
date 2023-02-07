@@ -5,10 +5,21 @@
                 <div class="card-body">
                     <form>
                         <label for="newEmail" class="form-label">Correo electrónico</label>
-                        <input type="email" class="form-control mb-2" id="newEmail" placeholder="Correo electrónico">
-                        <input type="email" class="form-control mb-2" id="confirmEmail"
-                            placeholder="Confirmar correo electrónico">
-                        <button class="btn btn-primary" type="submit">Guardar</button>
+                        <input type="email" class="form-control" id="newEmail" placeholder="Correo electrónico"
+                            [(ngModel)]="newEmail" [ngModelOptions]="{standalone: true}" required
+                            (blur)="analyzeNewEmail()" (focus)="invalidNewEmail = false">
+                        <div class="msg-error" [hidden]="!invalidNewEmail">
+                            El correo electrónico ingresado es inválido.
+                        </div>
+                        <input type="email" class="form-control mt-2" id="confirmEmail"
+                            placeholder="Confirmar correo electrónico" [(ngModel)]="confirmEmail"
+                            [ngModelOptions]="{standalone: true}" required (blur)="analyzeConfirmEmail()"
+                            (focus)="invalidConfirmEmail = false">
+                        <div class="msg-error" [hidden]="!invalidConfirmEmail">
+                            Los correos no coinciden.
+                        </div>
+                        <button class="btn btn-primary mt-2" type="submit" [disabled]="!verifyFormEmail()"
+                            (click)="submitFormEmail()">Guardar</button>
                     </form>
                 </div>
             </div>
@@ -18,13 +29,27 @@
                 <div class="card-body">
                     <form>
                         <label for="currentPassword" class="form-label">Contraseña</label>
-                        <input type="password" class="form-control mb-2" id="currentPassword"
-                            placeholder="Contraseña actual">
-                        <input type="password" class="form-control mb-2" id="newPassword"
-                            placeholder="Nueva contraseña">
-                        <input type="password" class="form-control mb-2" id="confirmPassword"
-                            placeholder="Confirmar contraseña">
-                        <button class="btn btn-primary" type="submit">Guardar</button>
+                        <input type="password" class="form-control" id="currentPassword" placeholder="Contraseña actual"
+                            [(ngModel)]="currentPassword" [ngModelOptions]="{standalone: true}" required
+                            (blur)="analyzeCurrentPassword()" (focus)="invalidCurrentPassword = false">
+                        <div class="msg-error" [hidden]="!invalidCurrentPassword">
+                            La contraseña ingresada es incorrecta.
+                        </div>
+                        <input type="password" class="form-control mt-2" id="newPassword" placeholder="Nueva contraseña"
+                            [(ngModel)]="newPassword" [ngModelOptions]="{standalone: true}" required
+                            (blur)="analyzeNewPassword()" (focus)="invalidNewPassword = false">
+                        <div class="msg-error" [hidden]="!invalidNewPassword">
+                            La contraseña debe tener mínimo 8 caracteres.
+                        </div>
+                        <input type="password" class="form-control mt-2" id="confirmPassword"
+                            placeholder="Confirmar contraseña" [(ngModel)]="confirmPassword"
+                            [ngModelOptions]="{standalone: true}" required (blur)="analyzeConfirmPassword()"
+                            (focus)="invalidConfirmPassword = false">
+                        <div class="msg-error" [hidden]="!invalidConfirmPassword">
+                            Las contraseñas no coinciden.
+                        </div>
+                        <button class="btn btn-primary mt-2" type="submit" [disabled]="!verifyFormPassword()"
+                            (click)="submitFormPassword()">Guardar</button>
                     </form>
                 </div>
             </div>

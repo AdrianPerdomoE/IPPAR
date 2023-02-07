@@ -66,6 +66,21 @@ var controller = {
 
     }
     ,
+    confirmPassword: function (req, res) {
+        let email = req.body.email
+        let password = req.body.password
+
+        User.find().exec((err, users) => {
+            if (err) return res.status(500).send({ message: 'Error al devolver los datos' })
+
+            if (!users) return res.status(404).send({ message: 'No hay usuarios registrados' })
+            let passwordIsCorrect = false
+            users.forEach(user => {
+                if (user.email == email && user.password == password) { passwordIsCorrect = true; }
+            })
+            return res.status(200).send({ passwordIsCorrect });
+        })
+    },
     updateUser: function (req, res) {
         var userId = req.params.id;
         var update = req.body;

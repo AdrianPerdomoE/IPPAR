@@ -119,19 +119,7 @@ export class MapComponent implements OnInit {
       .setLatLng([this.lat + 0.004, this.lon])
       .setContent("Ubicación actual")
       .openOn(this.map);
-    L.Routing.control({
-      router: L.Routing.osrmv1({
-        serviceUrl: `https://router.project-osrm.org/route/v1/`
-      }),
-      showAlternatives: false,
-      fitSelectedRoutes: false,
-      show: false,
-      routeWhileDragging: false,
-      waypoints: [
-        L.latLng(this.lat, this.lon),
-        L.latLng(lat, lon)
-      ]
-    }).addTo(this.map);
+    L.marker([this.lat, this.lon]).addTo(this.map)
     tiles.addTo(this.map);
   }
 

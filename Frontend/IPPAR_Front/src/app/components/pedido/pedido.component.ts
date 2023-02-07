@@ -25,13 +25,8 @@ export class PedidoComponent implements OnInit {
   lat = 0
   lon = 0
   pedido = new Order('', '', new Date, new Date, [], 0)
+  tiendas: Store[] = []
   constructor(private storeService: StoreServiceService, private actRoute: ActivatedRoute, private OrderService: OrderServiceService) {
-    this.getPosition().then(pos => {
-      this.lat = pos.lat
-      this.lon = pos.lng
-      this.camino.push(L.latLng(this.lat, this.lon))
-      this.initMap();
-    });
   }
 
   cantidadItems() {
@@ -46,14 +41,28 @@ export class PedidoComponent implements OnInit {
       }
 
     })
-    this.pedido.orderGroups.forEach(val => {
-      this.storeService.getStore(val.storeId).subscribe(response => {
-        if (response.stores) {
+    this.storeService.getStores().subscribe(response => {
+      if (response.stores) {
+        this.tiendas = response.stores
+        this.getPosition().then(pos => {
+          this.lat = pos.lat
+          this.lon = pos.lng
           this.camino.push(L.latLng(this.lat, this.lon))
+          this.pedido.orderGroups.forEach(val => {
+            this.tiendas.forEach(tien => {
+              if (tien._id == val.storeId) {
+                this.camino.push(L.latLng(tien.latitud, tien.longitud))
+              }
+            })
 
-        }
-      })
+
+          })
+
+          this.initMap();
+        });
+      }
     })
+
 
   }
   private getPosition(): Promise<any> {

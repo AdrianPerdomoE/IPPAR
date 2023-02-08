@@ -13,7 +13,7 @@ export class NavbarComponent implements OnInit {
   public query: string = ''
   public type: string = 'tiendas'
 
-  public carrito = new Cart('', [], '', 0,0)
+  public carrito = new Cart('', [], '', 0, 0)
 
   constructor(
     private _router: Router,
@@ -22,15 +22,20 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.cartService.carritoState.subscribe(response => {
+      if (response) {
+        this.carrito = response
+      }
+    })
     let id = this.sesionService.getCurrentUser()?._id
     if (!id) return
     this.cartService.getCart(id).subscribe(response => {
       if (response.cart) {
-        this.carrito = response.cart
+        this.cartService.carritoState.next(response.cart)
       }
     })
   }
-  
+
   logOut() {
     this.sesionService.logOut()
   }

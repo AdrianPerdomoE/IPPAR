@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { Observable , Subject} from "rxjs";
 import { Cart } from "../models/Cart";
 import { Global } from "./Global";
 import { CartItem } from "../models/CartItem";
@@ -14,6 +14,8 @@ export class CartService {
   constructor(private _http: HttpClient) {
     this.url = Global.url;
   }
+
+  public carritoState = new Subject<Cart>() ;
 
   saveCart(cart: Cart): Observable<any> {
     let params = JSON.stringify(cart)
@@ -29,6 +31,7 @@ export class CartService {
   updateCar(cart: Cart): Observable<any> {
     let params = JSON.stringify(cart)
     let headers = new HttpHeaders().set("Content-Type", "application/json");
+    this.carritoState.next(cart)
     return this._http.put(`${this.url}updateCart/${cart._id}`, params, { headers: headers });
   }
 

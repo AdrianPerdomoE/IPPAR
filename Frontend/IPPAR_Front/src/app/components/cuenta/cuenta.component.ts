@@ -39,7 +39,13 @@ export class CuentaComponent {
             'Mensaje',
             'El correo electrónico ya está registrado en otra cuenta.'
           );
-          return
+        }
+        else if (!this.verifyConfirmEmail()) {
+          this.notifService.enviarAlerta(
+            'error',
+            'Mensaje',
+            'Los correos no coinciden.'
+          );
         }
         else {
           let currentUser = this.sesionService.getCurrentUser()
@@ -59,6 +65,8 @@ export class CuentaComponent {
                           'Mensaje',
                           'El correo electrónico ha sido actualizado correctamente.'
                         );
+                        this.newEmail = ''
+                        this.confirmEmail = ''
                       }
                     }
                   )
@@ -72,7 +80,6 @@ export class CuentaComponent {
               'Mensaje',
               'Ha ocurrido un error al intentar actualizar el correo electrónico.'
             );
-            return
           }
         }
       }
@@ -101,7 +108,72 @@ export class CuentaComponent {
   }
 
   submitFormPassword() {
-    alert("XD")
+    let currentUser = this.sesionService.getCurrentUser()
+    if (currentUser) {
+      this.userService.confirmPassword(currentUser.email, this.currentPassword).subscribe(
+        response => {
+          if (response.passwordIsCorrect) {
+            if (!this.verifyNewPassword()) {
+              this.notifService.enviarAlerta(
+                'error',
+                'Mensaje',
+                'La contraseña nueva debe tener mínimo 8 caracteres.'
+              );
+            }
+            else if (!this.verifyConfirmPassword()) {
+              this.notifService.enviarAlerta(
+                'error',
+                'Mensaje',
+                'Las contraseñas no coinciden.'
+              );
+            }
+            else {
+              let currentUser = this.sesionService.getCurrentUser()
+              if (currentUser) {
+                this.userService.getUser(currentUser.email).subscribe(
+                  response => {
+                    let user = response.user
+                    if (user) {
+                      user.password = this.newPassword
+                      this.userService.updateUser(user).subscribe(
+                        response => {
+                          let user = response.user
+                          if (user) {
+                            this.sesionService.logSesion(user)
+                            this.notifService.enviarAlerta(
+                              'success',
+                              'Mensaje',
+                              'La contraseña ha sido actualizada correctamente.'
+                            );
+                            this.currentPassword = ''
+                            this.newPassword = ''
+                            this.confirmPassword = ''
+                          }
+                        }
+                      )
+                    }
+                    else {
+                      this.notifService.enviarAlerta(
+                        'error',
+                        'Mensaje',
+                        'Ha ocurrido un error al intentar actualizar la contraseña.'
+                      );
+                    }
+                  }
+                )
+              }
+            }
+          }
+          else {
+            this.notifService.enviarAlerta(
+              'error',
+              'Mensaje',
+              'La contraseña actual es incorrecta.'
+            );
+          }
+        }
+      )
+    }
   }
 
   analyzeCurrentPassword() {
@@ -126,9 +198,11 @@ export class CuentaComponent {
       this.userService.confirmPassword(currentUser.email, this.currentPassword).subscribe(
         response => {
           this.invalidCurrentPassword = !response.passwordIsCorrect
+          return response.passwordIsCorrect
         }
       )
     }
+    return false
   }
 
   verifyNewPassword() {

@@ -54,7 +54,11 @@ export class CarritoComponent implements OnInit {
     this.orderService.registerOrder(newOrder).subscribe(response => {
       if (response.order) {
         this.cartService.emptyCart(this.carrito).subscribe(resp => {
-          this._router.navigate([`/pedido/${response.order._id}`])
+          if(resp.cart){
+            this.cartService.carritoState.next(resp.cart)
+            this._router.navigate([`/pedido/${response.order._id}`])
+          }
+        
         })
       }
     })

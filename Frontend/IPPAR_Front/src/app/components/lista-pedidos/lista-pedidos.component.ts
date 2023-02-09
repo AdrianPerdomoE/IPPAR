@@ -17,7 +17,7 @@ export class ListaPedidosComponent {
         this.pedidos = resp.orders
         let userId = this.sesionService.getCurrentUser()?._id
         if (this.pedidos.length > 0) {
-          this.pedidos.filter(order => { return order._id == userId })
+          this.pedidos = this.pedidos.filter(order => { return order.userId == userId })
         }
 
       }

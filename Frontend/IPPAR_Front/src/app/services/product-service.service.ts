@@ -31,12 +31,4 @@ export class ProductServiceService {
     let headers = new HttpHeaders().set("Content-Type", "application/json");
     return this._http.get(`${this.url}GetProducts/${owner}`, { headers: headers });
   }
-  getProductSearch(searchBy: string): Observable<any> {
-    let headers = new HttpHeaders().set("Content-Type", "application/json");
-    return this._http.get(`${this.url}searchProduct/${searchBy}`, { headers: headers });
-  }
-  getProductSearchOwner(searchBy: string, owner: string): Observable<any> {
-    let headers = new HttpHeaders().set("Content-Type", "application/json");
-    return this._http.get(`${this.url}search/${searchBy}/${owner}`, { headers: headers });
-  }
 }

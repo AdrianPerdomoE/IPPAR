@@ -33,34 +33,6 @@ export class SesionServiceService {
     }
     return undefined
 
-  }
-  getSearchLevel():string|undefined{
-    let sesionString = sessionStorage.getItem('SESION')
-    if (sesionString) {
-      let sesion:Sesion = JSON.parse(sesionString)
-      return sesion.searchLevel
-    }
-    return undefined
-  }
-  setSearchLevelGeneral():void{
-    let sesionSTR = sessionStorage.getItem('SESION')
-    if (sesionSTR) {
-      let sesion:Sesion = JSON.parse(sesionSTR)
-      sesion.searchLevel = Sesion.INSIDE
-      let sesionString = JSON.stringify(sesion)
-      sessionStorage.setItem('SESION',sesionString)
-    }
-  
-  }
-  setSearchLevelInside():void{
-    let sesionSTR = sessionStorage.getItem('SESION')
-    if (sesionSTR) {
-      let sesion:Sesion = JSON.parse(sesionSTR)
-      sesion.searchLevel = Sesion.INSIDE
-      let sesionString = JSON.stringify(sesion)
-      sessionStorage.setItem('SESION',sesionString)
-    }
-  
-  }
+  } 
 }
 

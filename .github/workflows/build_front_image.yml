@@ -41,7 +41,7 @@ jobs:
 
       - name: Start Docker Compose
         run: |
-          ls
+          cd IPPAR_Front
           docker-compose build
           docker-compose push
       - name: Clean Up

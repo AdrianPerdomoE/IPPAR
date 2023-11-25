@@ -1,4 +1,4 @@
-name: Build front image
+name: Build back image
 
 on:
   push:
@@ -6,8 +6,9 @@ on:
       - master
   workflow_dispatch:
 env:
+
   TAG: ${{ github.run_number }}
-  DOCKER_IMAGE_NAME: ghcr.io/adrianperdomoe/ippar_front:v${{ github.run_number }}
+  DOCKER_IMAGE_NAME: ghcr.io/adrianperdomoe/ippar_back:v${{ github.run_number }}
 
 jobs:
   compose:
@@ -17,14 +18,14 @@ jobs:
       packages: write
     defaults:
       run:
-        working-directory: ${{ github.workspace }}/frontend/IPPAR-Front
+        working-directory: ${{ github.workspace }}/backend
     steps:
       - uses: actions/checkout@v4
 
       - name: Set up Node.js version
         uses: actions/setup-node@v3.8.1
         with:
-          node-version: "18.x"
+          node-version: '18.x'
 
       - name: Determine Version
         id: determine-version
@@ -40,7 +41,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Start Docker Compose
-        run: |
+        run: | 
           docker-compose build
           docker-compose push
       - name: Clean Up

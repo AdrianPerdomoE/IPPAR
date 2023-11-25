@@ -11,6 +11,7 @@ env:
   DOCKER_IMAGE_NAME: ghcr.io/adrianperdomoe/ippar_back:v${{ github.run_number }}
 
 jobs:
+
   compose:
     runs-on: ubuntu-latest
     permissions:
@@ -26,7 +27,9 @@ jobs:
         uses: actions/setup-node@v3.8.1
         with:
           node-version: '18.x'
-
+      - name: Debugging Step
+        run: |
+          ls -al ${{ github.workspace }}
       - name: Determine Version
         id: determine-version
         run: |

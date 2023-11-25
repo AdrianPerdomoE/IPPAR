@@ -1,0 +1,28 @@
+# First Stage: Build Angular App
+FROM node:16.16.0-alpine as build-sted
+
+# Create and set the working directory
+WORKDIR /app
+
+# Copy only the package.json and package-lock.json first
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install -g @angular/cli@15.1.4
+RUN npm install typescript@4.9.5
+RUN npm cache clean --force
+RUN rm -rf node_modules
+RUN npm install
+
+# Copy the entire application
+COPY . .
+
+# Build the application
+RUN npm rebuild node-sass
+RUN npm run build --prod
+
+# Second Stage: Create Nginx Image
+FROM nginx:1.19.0-alpine
+
+# Copy the built files from the first stage to Nginx's HTML directory
+COPY --from=build-sted /app/dist/ippar-front /usr/share/nginx/html

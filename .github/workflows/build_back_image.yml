@@ -19,7 +19,7 @@ jobs:
       packages: write
     defaults:
       run:
-        working-directory: backend
+        working-directory: Backend
     steps:
       - uses: actions/checkout@v4
 

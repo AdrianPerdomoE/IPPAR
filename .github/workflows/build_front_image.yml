@@ -17,7 +17,7 @@ jobs:
       packages: write
     defaults:
       run:
-        working-directory: frontend
+        working-directory: Frontend/IPPAR-Front
     steps:
       - uses: actions/checkout@v4
 
@@ -41,7 +41,6 @@ jobs:
 
       - name: Start Docker Compose
         run: |
-          cd IPPAR-Front
           docker-compose build
           docker-compose push
       - name: Clean Up
